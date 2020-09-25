@@ -7,9 +7,17 @@ except IOError:
 
 Lineas = file.readlines()
 instructions = ["CMP", "JEQ", "MOV", "SUB", "ADD", "JMP"]
-for linea in Lineas:
+for idx, linea in enumerate(Lineas):
     line = linea.split()
     if line[0] not in instructions:
-        print("Error en la linea: {} \t{} no es una instruccion valida".format(linea, line[0]))
+        print("Error en la linea {}: {} \t{} no es una instruccion valida".format(idx+1, linea, line[0]))
+    elif line[0] == "CMP":
+        try:
+            float(line[1])
+        except ValueError:
+            print("Error en la linea {}: {} \tEl primer elemento no puede ser un literal".format(idx+1, linea, line[0]))
+    elif line[0] == "ADD":
+        if line[1][0] == "(":
+            print("Error en la linea {}: {} \tEl primer elemento no puede ser una direccion".format(idx + 1, linea, line[0]))
 
 file.close()
