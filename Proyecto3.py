@@ -6,6 +6,7 @@ except IOError:
 
 Lineas = file.readlines()
 instructions = ["CMP", "JEQ", "MOV", "SUB", "ADD", "JMP"]
+numeros = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 listaMov = ["(A),B", "A,(A)", "A,A", "B,B"]
 for idx, linea in enumerate(Lineas):
     line = linea.split()
@@ -44,14 +45,14 @@ for idx, linea in enumerate(Lineas):
         if "," in line[1]:
             print("Error en la linea {}: {} \tError de sintaxis, {} solo recibe un parametro.".format(idx + 1, linea,
                                                                                                       line[0]))
-numeros = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-elif line[0] == "MOV":
-if (line[1].split(","))[0] == "(A)":
-    print("Error en la linea {}: {} \tEl primer elemento no puede ser (A)".format(idx + 1, linea, line[0]))
 
-for a in numeros:  # Revisar esto, segun yo ninguna instruccion puede empezar con un literal
-    if line[1][0] == a and line[0][0] != "J" and line[0] != "CMP":
-        print("Error en la linea {}: {} \tEl primer elemento no puede ser un literal".format(idx + 1, linea, line[0]))
-        break:
+    elif line[0] == "MOV":
+        if (line[1].split(","))[0] == "(A)":
+            print("Error en la linea {}: {} \tEl primer elemento no puede ser (A)".format(idx + 1, linea, line[0]))
 
-    file.close()
+        for a in numeros:  # Revisar esto, segun yo ninguna instruccion puede empezar con un literal
+            if line[1][0] == a and line[0][0] != "J" and line[0] != "CMP":
+                print("Error en la linea {}: {} \tEl primer elemento no puede ser un literal".format(idx + 1, linea, line[0]))
+                break
+
+file.close()
